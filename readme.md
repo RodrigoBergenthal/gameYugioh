@@ -1,4 +1,4 @@
-# Yu-Gi-Oh | Jo-ken-po Edition
+# Yu-Gi-Oh | Jo-ken-po Edition  E HORA DO DUELO
 
 Jogo de jokenpo que criei para explicar conceitos de lógica de programação aplicados a jogos
 
