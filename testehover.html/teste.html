@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PokeAPI Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    .pokemon-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 300px;
+      cursor: pointer;
+      transition: transform 0.5s;
+    }
+
+    .pokemon-card:hover {
+      transform: scale(1.05);
+    }
+
+    .pokemon-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .pokemon-info {
+      padding: 15px;
+    }
+
+    .pokemon-info h2 {
+      margin: 0;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="pokemon-card" id="pokemonCard">
+    <img class="pokemon-image" id="pokemonImage" src="" alt="Pokemon Image">
+    <div class="pokemon-info">
+      <h2 id="pokemonName"></h2>
+      <div class="hidden" id="pokemonAbilities">
+        <p><strong>Abilities:</strong></p>
+        <ul id="abilityList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const pokemonCard = document.getElementById('pokemonCard');
+    const pokemonImage = document.getElementById('pokemonImage');
+    const pokemonName = document.getElementById('pokemonName');
+    const pokemonAbilities = document.getElementById('pokemonAbilities');
+    const abilityList = document.getElementById('abilityList');
+
+    // Replace '1' with the desired Pokémon ID
+    const pokemonId = 1;
+
+    const apiUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonId}/`;
+
+    async function fetchPokemonData() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        pokemonImage.src = data.sprites.front_default;
+        pokemonName.textContent = data.name;
+
+        const abilities = data.abilities.map(ability => ability.ability.name);
+        displayAbilities(abilities);
+      } catch (error) {
+        console.error('Error fetching Pokemon data:', error);
+      }
+    }
+
+    function displayAbilities(abilities) {
+      abilities.forEach(ability => {
+        const li = document.createElement('li');
+        li.textContent = ability;
+        abilityList.appendChild(li);
+      });
+
+      pokemonAbilities.classList.remove('hidden');
+    }
+
+    pokemonCard.addEventListener('click', () => {
+      fetchPokemonData();
+    });
+  </script>
+</body>
+</html>
