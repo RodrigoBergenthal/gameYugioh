@@ -7,4 +7,4 @@ conceitos abordados:
 - Armazenamento e gerenciamento de estado manual
 - Funções limpas 3
 - Organização de código
-dia 24 ok
+dia 25 ok
